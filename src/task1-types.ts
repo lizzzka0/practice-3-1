@@ -17,7 +17,7 @@ export type Catalog = Record<string, Book>;
 // TODO 3: Объявите тип BookFilter как функцию, которая принимает Book и возвращает boolean
 export type BookFilter = (book: Book) => boolean;
 
-
+/** @deprecated пока не используется, задел на фичу "Текстовое описание в карточке" */
 // Функция formatBook(book: Book): string в формате: "Title (Year) — Authors"
 export function formatBook(book: Book): string {
   const yearStr = book.year !== undefined ? ` (${book.year})` : "";
@@ -25,6 +25,7 @@ export function formatBook(book: Book): string {
   return `${book.title}${yearStr} — ${authorsStr}`;
 }
 
+/** @deprecated пока не используется, задел на фичу "Статистика" */
 // Функция calculateAverageYear(books: Book[]): number возвращает средний год издания. Если книг нет или у них нет года — вернуть 0.
 export function calculateAverageYear(books: Book[]): number {
   const booksWithYear = books.filter((book) => book.year !== undefined);
