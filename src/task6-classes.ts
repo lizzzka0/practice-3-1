@@ -7,8 +7,10 @@
 // Проверка: npm test -- task6
 // ============================================================
 
-import { Book } from './task1-types';
-import { filterByTitle, sortBooks } from "./task5-utils";
+import { Book, formatBook } from './task1-types';
+//Импорт для бонуса
+import { createBookFromForm } from './task4-integration';
+import { filterByTitle, sortBooks } from './task5-utils';
 
 export class BookCatalog {
   private books: Book[];
@@ -21,7 +23,6 @@ constructor(id: string, books: Book[] = []) {
   addBook(book: Book): void {
   this.books = [...this.books, book];
   }
-
   removeBook(id: string): void {
   this.books = this.books.filter((book) => book.id !== id);
   }
@@ -38,6 +39,43 @@ constructor(id: string, books: Book[] = []) {
     return this.books.length;
   }
 }
+
+//Бонус
+export class BookClass implements Book {
+  readonly id: string;
+  title: string;
+  authors: string[];
+  year?: number;
+  rating?: number;
+  constructor(
+    id: string,
+    title: string,
+    authors: string[],
+    year?: number,
+    rating?: number
+  ) 
+  {
+    this.id = id;
+    this.title = title;
+    this.authors = authors;
+    this.year = year;
+    this.rating = rating;
+  }
+  format(): string {
+    return formatBook(this);
+  }
+  static createFromFormData(formData: FormData): BookClass {
+    const raw = createBookFromForm(formData);
+    return new BookClass(
+      raw.id,
+      raw.title,
+      raw.authors,
+      raw.year,
+      raw.rating
+    );
+  }
+}
+
 /*
   Реализуйте класс BookCatalog.
 
